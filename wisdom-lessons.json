@@ -1,0 +1,249 @@
+[
+  {
+    "id": "myth",
+    "title": "Hecate's Torch",
+    "category": "Greek myth · primary source",
+    "concept": "Persephone's descent is an abduction in the ancient hymn, not a punishment for being imperfect. Hecate hears Persephone's cry but does not witness the abduction; later she helps Demeter seek more information.",
+    "story": "At the orchard gate, Hecate carries light without pretending to possess every answer. This is a modern metaphor drawn from the myth, not an ancient psychological teaching.",
+    "daily": "If you hear only part of a conversation, you can describe precisely what you heard without inventing the missing pieces.",
+    "nuance": "Mythic figures in this story are literary guides. The original myth should not be used to rationalize coercion, mistreatment, or suffering as necessary growth.",
+    "reflection": "What is one thing I know happened, and one thing I cannot yet know?",
+    "sources": [
+      {
+        "label": "Homeric Hymn to Demeter · translated text",
+        "url": "https://www.theoi.com/Text/HomericHymns1.html"
+      }
+    ],
+    "quiz": {
+      "prompt": "Hecate hears a cry but does not see who caused it. What can she responsibly report?",
+      "choices": [
+        "Exactly who caused the cry",
+        "She heard a cry, but did not see who caused it",
+        "The cry must have been harmless"
+      ],
+      "correct": 1,
+      "correctFeedback": "Right. Hecate can report what she heard without pretending she witnessed the cause.",
+      "incorrectFeedback": "The evidence supports only the cry and Hecate's limited position. The cause requires further information."
+    }
+  },
+  {
+    "id": "persona",
+    "title": "The Mask and the Person",
+    "category": "Jungian framework · interpretive theory",
+    "concept": "In Jungian analytical psychology, the persona is the socially adapted face through which we meet the world. It can be useful, but no social role contains everything a person is.",
+    "story": "The Garden of Ideal Selves has flowers labeled kind, loyal, brave, and always enough. The queen can value those qualities without needing to perform them perfectly at all times.",
+    "daily": "Being seen as generous is not identical to acting from generosity. You can value kindness and still need rest or say no.",
+    "nuance": "Persona is a theoretical concept from Jung's school, not a clinical test. Other people cannot determine which of someone's actions are authentic simply by invoking it.",
+    "reflection": "Which quality do I genuinely value, and when do I feel pressure to prove it?",
+    "sources": [
+      {
+        "label": "International Association for Analytical Psychology · overview",
+        "url": "https://iaap.org/jung-analytical-psychology/analytical-psychology/"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which example best separates a value from a rigid persona?",
+      "choices": [
+        "I care about generosity, and sometimes I also need to decline a request",
+        "If I say no, my whole identity as a good person is false",
+        "Everyone must perceive me as kind at every moment"
+      ],
+      "correct": 0,
+      "correctFeedback": "Right. A value can guide choices without demanding a flawless public image.",
+      "incorrectFeedback": "The key distinction is that a value guides behavior; a rigid public image demands constant approval."
+    }
+  },
+  {
+    "id": "shadow",
+    "title": "Meeting the Shadow",
+    "category": "Jungian framework · interpretive theory",
+    "concept": "Jung's shadow refers to characteristics and impulses that do not fit our preferred conscious self-image. Exploring them is about acknowledging complexity, not proving someone is secretly bad.",
+    "story": "When Persephone meets her double, she can admit anger and tenderness in the same person. A feeling may be understandable even when acting on it would be harmful.",
+    "daily": "Someone who values fairness can still feel jealousy. Naming the jealousy may help them choose a fair response rather than deny it or let it direct everything.",
+    "nuance": "A shadow interpretation is not evidence of another person's hidden motives. It should never be used to excuse mistreatment or impose an identity on someone.",
+    "reflection": "Which emotion is uncomfortable to acknowledge, and what responsible action could coexist with it?",
+    "sources": [
+      {
+        "label": "International Association for Analytical Psychology · analytical psychology",
+        "url": "https://iaap.org/jung-analytical-psychology/analytical-psychology/"
+      }
+    ],
+    "quiz": {
+      "prompt": "What is a constructive way to work with an uncomfortable feeling?",
+      "choices": [
+        "Treat the feeling as permission to act however I want",
+        "Deny the feeling so it cannot affect me",
+        "Name the feeling, then choose how to act responsibly"
+      ],
+      "correct": 2,
+      "correctFeedback": "Right. Recognizing an emotion does not require obeying it.",
+      "incorrectFeedback": "A feeling can be acknowledged without being denied or used as permission for harmful behavior."
+    }
+  },
+  {
+    "id": "mindreading",
+    "title": "When Fear Writes the Dialogue",
+    "category": "Evidence-informed cognitive skill · CBT",
+    "concept": "In cognitive-behavioral approaches, 'mind reading' means treating an assumption about another person's thoughts as if it were established fact. Jungian projection is a different, more interpretive concept; the two should not be casually equated.",
+    "story": "The enchanted mirror shows several possible versions of Eric's thoughts. None of the reflections alone can confirm what he actually believes.",
+    "daily": "A message has not been answered. 'No reply yet' describes an event. 'He doesn't care about me' assigns a motive. Sometimes a concerning interpretation is supported by a wider pattern, but silence alone does not prove it.",
+    "nuance": "Not every expectation of mistreatment is mistaken. Actual words, repeated conduct, and safety concerns still matter. The lesson is to test interpretations, not ignore evidence.",
+    "reflection": "What did the other person actually do, and which part of my interpretation remains uncertain?",
+    "sources": [
+      {
+        "label": "Royal National Orthopaedic Hospital · unhelpful thinking styles",
+        "url": "https://www.rnoh.nhs.uk/patients-and-visitors/patient-information-guides/unhelpful-thinking-styles"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which statement is an interpretation rather than an observed event?",
+      "choices": [
+        "The message was sent at six",
+        "There was no reply by seven",
+        "The lack of reply proves I am unwanted"
+      ],
+      "correct": 2,
+      "correctFeedback": "Right. Unwanted is an inferred meaning. It may feel urgent, but it is not proven by a single delay.",
+      "incorrectFeedback": "Times and the absence of a reply can be observed; another person's private reason for not replying cannot be read directly."
+    }
+  },
+  {
+    "id": "evidence",
+    "title": "The Two Lanterns of Uncertainty",
+    "category": "Evidence-informed cognitive skill · CBT",
+    "concept": "A useful distinction is observation, interpretation, and uncertainty. A thought record can help examine what happened, what we inferred, what supports that inference, and what alternatives remain possible.",
+    "story": "On the Bridge of Two Truths, one lantern illuminates what was said or done. The other reveals what has not been established. Both matter when deciding how to respond.",
+    "daily": "'The plan changed' is an observation. 'That means I'm unimportant' is an interpretation. 'I can ask what happened or set a boundary if changes keep recurring' is a possible response.",
+    "nuance": "Being uncertain about motives does not require tolerating disrespect. One can act on observed behavior without settling every question about intention.",
+    "reflection": "Write one event, one interpretation, and one reasonable alternative explanation.",
+    "sources": [
+      {
+        "label": "NHS Every Mind Matters · thought record exercise",
+        "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/thought-record/"
+      }
+    ],
+    "quiz": {
+      "prompt": "What is the strongest way to test the thought 'That change proves they don't respect me'?",
+      "choices": [
+        "Separate the change from its possible explanations and look for a pattern",
+        "Assume the worst so I cannot be surprised",
+        "Ignore my discomfort and pretend nothing happened"
+      ],
+      "correct": 0,
+      "correctFeedback": "Right. Examine the behavior and context while still respecting your own experience.",
+      "incorrectFeedback": "Useful discernment is neither catastrophizing nor ignoring. Separate what happened from what it may mean."
+    }
+  },
+  {
+    "id": "autonomy",
+    "title": "What Is Mine to Choose?",
+    "category": "Ancient philosophy · Stoic perspective",
+    "concept": "Epictetus distinguished our own choices and judgments from events outside our direct control, including another person's reputation, behavior, or opinion. This is a philosophical position, not a claim that feelings are trivial.",
+    "story": "The queen can choose whether to ask a question, say no, offer care, or step away. She cannot directly control what Eric thinks in private.",
+    "daily": "I can speak honestly and take responsibility for my behavior. I cannot guarantee another person agrees or stays.",
+    "nuance": "Some things are partly influenceable rather than simply controllable or uncontrollable. Boundaries are appropriate, and the Stoic perspective should not be used to dismiss harms done by others.",
+    "reflection": "Which part of this situation is mine to act on, and which outcome cannot be guaranteed?",
+    "sources": [
+      {
+        "label": "Stanford Encyclopedia of Philosophy · Epictetus",
+        "url": "https://plato.stanford.edu/entries/Epictetus/"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which action belongs most directly to your own agency?",
+      "choices": [
+        "Making another person feel love",
+        "Choosing whether to set a respectful boundary",
+        "Guaranteeing how a conversation will end"
+      ],
+      "correct": 1,
+      "correctFeedback": "Right. You can choose a boundary even though you cannot control how another person receives it.",
+      "incorrectFeedback": "One's own behavior can be chosen; another person's feelings and future response cannot be guaranteed."
+    }
+  },
+  {
+    "id": "repair",
+    "title": "Love, Respect, and Repair",
+    "category": "Ethical reasoning · relationships",
+    "concept": "Care and respect are not interchangeable with control. Philosophical accounts of respect take another person's agency seriously; repairing trust also calls for acknowledging concrete harm and practicing more reliable behavior.",
+    "story": "At the hearth and the bridge, Persephone and Eric may choose conversation, distance, or an open question. Their fictional words are not real transcripts. Neither character must surrender agency to prove affection.",
+    "daily": "A meaningful apology might identify what happened, recognize its effects, and describe what will change. The other person remains free to accept, decline, or request space.",
+    "nuance": "Love does not obligate reconciliation. If hostility or threats persist, choosing distance can be a defensible response. Repair requires willing participation and sustained action, not a dramatic single scene.",
+    "reflection": "What behavior would demonstrate respect in practice, whichever relationship decision I choose?",
+    "sources": [
+      {
+        "label": "Stanford Encyclopedia of Philosophy · respect",
+        "url": "https://plato.stanford.edu/entries/respect/"
+      },
+      {
+        "label": "UC Berkeley Greater Good · effective apology",
+        "url": "https://greatergood.berkeley.edu/article/item/the_three_parts_of_an_effective_apology"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which example best shows respect for both people during disagreement?",
+      "choices": [
+        "One person must accept every demand to keep the peace",
+        "Both explain their concerns, can disagree, and remain free to set boundaries",
+        "A declaration of love cancels the need to address repeated harm"
+      ],
+      "correct": 1,
+      "correctFeedback": "Right. Mutual agency and accountability matter more than obtaining immediate agreement.",
+      "incorrectFeedback": "Respect does not require submission or pretending harm has vanished. Both people retain agency."
+    }
+  },
+  {
+    "id": "compassion",
+    "title": "Kindness without Self-Erasure",
+    "category": "Researched psychological construct · self-compassion",
+    "concept": "Self-compassion has been studied as responding to one's suffering with kindness, common humanity, and mindful awareness, rather than harsh self-judgment or denial.",
+    "story": "At the Hearth with One Empty Chair, the queen notices she has served everyone else while leaving herself no place to sit. She can care about others and still count herself among those deserving care.",
+    "daily": "After making a mistake, 'I did something hurtful and want to make amends' is different from 'I'm worthless and everything is my fault.'",
+    "nuance": "Self-compassion is not the same as avoiding accountability. Research on interventions has limits, and no brief exercise can diagnose or fix a relationship.",
+    "reflection": "What would responsible kindness toward myself sound like today?",
+    "sources": [
+      {
+        "label": "Annual Review of Psychology · self-compassion review",
+        "url": "https://doi.org/10.1146/annurev-psych-032420-031047"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which sentence combines responsibility with self-compassion?",
+      "choices": [
+        "I caused every bad thing that happened",
+        "My feelings excuse any behavior",
+        "I can own my mistake and still treat myself with dignity"
+      ],
+      "correct": 2,
+      "correctFeedback": "Right. Accountability and compassion can coexist.",
+      "incorrectFeedback": "Self-condemnation and total self-excuse are both extremes. Responsible kindness holds actions and worth apart."
+    }
+  },
+  {
+    "id": "individuation",
+    "title": "The Return as a Whole Person",
+    "category": "Jungian framework · interpretive theory",
+    "concept": "In Jungian analytical psychology, individuation describes a lifelong process of becoming more aware of different aspects of oneself and integrating them into a more complete understanding.",
+    "story": "Persephone returns from the underworld not because she has defeated uncertainty or obtained perfect approval, but because she can hold contradictions with greater awareness.",
+    "daily": "Someone can be loving and disappointed, independent and attached, confident in a value while uncertain about tomorrow. Growth may involve accepting such complexity rather than securing a perfect identity.",
+    "nuance": "Individuation is an interpretive framework, not an empirically verified stage test or a guarantee of healing. No one else can decree that a particular person has or has not individuated.",
+    "reflection": "What could I allow to remain imperfect while still moving forward according to my values?",
+    "sources": [
+      {
+        "label": "International Association for Analytical Psychology · the Self and individuation",
+        "url": "https://iaap.org/jung-analytical-psychology/short-articles-on-analytical-psychology/the-self-2/"
+      }
+    ],
+    "quiz": {
+      "prompt": "Which ending best captures individuation as a symbolic theme?",
+      "choices": [
+        "Learning to acknowledge contradictions and choose responsibly",
+        "Eliminating every difficult emotion forever",
+        "Getting everyone to agree on who I am"
+      ],
+      "correct": 0,
+      "correctFeedback": "Right. The symbol is about broader awareness and integration, not perfection or universal approval.",
+      "incorrectFeedback": "The Jungian metaphor is integration, not emotional perfection or control of other people's judgments."
+    }
+  }
+]

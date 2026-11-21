@@ -44,3 +44,23 @@ Text that visitors write (journals, lanterns, fortune, unsent letter) remains in
 After source control commit and pushing a clean main, deploy the exact committed worker.js to the existing Cloudflare Worker, then independently check the live story, JavaScript parse, and image URLs. Do not change the domain's DNS, homepage, unrelated Worker routes, or access model.
 
 When adding scenes, avoid renaming existing IDs and preserve current browser saves; ensure all scene IDs remain reachable and all choices are covered by the smoke tests.
+
+## Hecate's Book of Wisdom (v6)
+
+An optional, evidence-aware learning layer is integrated into every story chapter.
+
+- Nine selectable lessons explaining a philosophical or psychological concept, how it appears in the fictional story, an ordinary-life example, and limitations.
+- Interactive three-choice exercises with explanations, completed-practice indicators, and 10 verifiable external reading links.
+- Coverage: the Homeric Hymn's Persephone/Hecate, Jungian persona and shadow, cognitive "mind reading" and evidence testing, Epictetus's volition, ethics of respect and relational repair, self-compassion, and individuation.
+- Lesson-specific reflections are saved only in the visitor's existing browser local storage, included in the keepsake only when explicitly downloaded, and deleted by the existing erase action.
+- Book of Wisdom can be opened from the start of the story, the desktop side rail, or a contextual button inside every chapter.
+- The existing story save key and all 20 scenes/60 choices are preserved; the new lesson state migrates additively from previous browser saves.
+
+Educational source material resides in `wisdom-lessons.json` and is compiled into the self-contained deployed Worker with `build-wisdom.cjs`. Tests live in `wisdom-smoke.cjs` alongside the existing story tests.
+
+Run both tests before deployment:
+
+    node X:\Code\graves-persephone-story\story-smoke.cjs
+    node X:\Code\graves-persephone-story\wisdom-smoke.cjs
+
+The conceptual labels deliberately distinguish ancient myth, Jungian interpretive theory, philosophical ethics, and evidence-informed cognitive exercises. Nothing in the lessons diagnoses a real person or treats a symbolic interpretation as proof of someone's motives.
