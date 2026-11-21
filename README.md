@@ -1,41 +1,46 @@
 # The Orchard Between Worlds
 
-An original illustrated interactive fiction experience inspired by Persephone, Hecate, Jungian shadow symbolism, and the freedom to write one's own future. Created as a personal gift for Dawn.
+An original illustrated, branching mythic story written as a gift for Dawn, drawing on Persephone, Hecate, and shadow-work symbolism. The characters and dialogue are fictional, including the portrayal of Eric.
 
-## Current release
+## Production
 
-- Production story: https://graves.ptelectronics.net/persephone/
-- Hostname homepage: unchanged
-- 18 branching scenes, each with three choices (54 transitions)
-- 5 mythic endings with 3 additional relationship-epilogue outcomes
-- 9 original, visually coordinated WebP illustrations, including four new fictional Eric scenes
-- Interactive perspective switches for Persephone, Eric, and Hecate in relevant chapters
-- An optional self-written fortune, a two-lantern exercise, and a private journal
-- Local browser progress with back/replay/restart/erase controls; no server-side journal
-- All routes tested in story-smoke.cjs; new story scripts validated with Node's syntax check
+- Live story: https://graves.ptelectronics.net/persephone/
+- Deployment: Cloudflare Worker graves-persephone-story on the existing path-specific route
+- Homepage at graves.ptelectronics.net/ is not modified
+- No login or access control: this story is publicly reachable by link
+- Repository: https://github.com/insane66613/graves-persephone-story
 
-## Repository contents
+## Experience (v5)
 
-- worker.js: source of the deployed Cloudflare Worker and embedded HTML/CSS/JS story
-- assets/: public, original fictional illustration assets served by the production story
-- story-smoke.cjs: path and state-machine regression tests
-- enhance-v3.cjs: earlier version's story expansion script (historical)
+- 20 distinct scenes, 60 interactive choice transitions, all reachable
+- Five mythic endings plus three possible fictional relationship epilogues
+- Nine coordinated original fictional illustrations
+- New chapters: The Letter She Never Owed Anyone and The Small Day After the Underworld
+- Optional unsent letter, which stays on the device and is never sent to Eric
+- Journey atlas showing previous scene illustrations and choices; readers can rewind and revise without erasing writing
+- Focus reading view on desktop and mobile
+- Explicit, locally generated .txt keepsake: choices, outcome, fortune, lantern observations, unsent letter and optional private journal
+- Existing Hecate/Persephone/Eric perspective selector and two-lantern exercise
+- Local browser storage using the original graves_orchard_between_worlds_v1 key, with additive migration of the new optional state fields
+- Begin again resets choice history while keeping private writing; Erase clears everything from this browser
 
-## Fiction and boundaries
+## Privacy and factual distinction
 
-This story is publicly reachable by URL, without a login or access control, as requested. *Intended for Dawn* does not mean technologically private. The artwork depicts fictional mythic counterparts, not verified photographs or representations of real individuals. Story dialogue, Eric's characterization, and relationship outcomes are original fictional possibilities rather than verified transcripts, personal diagnoses, or assertions of fact. The story does not publish private messages or confidential personal records.
+"Made for Dawn" does not mean technically private. Anyone with the URL may view the fictional story, and the illustration assets are public. Do not add private messages, source transcripts, diagnoses, sensitive biographical records, real likenesses, or purported real-person mental states without explicitly scoped permission.
 
-Visitors' written journals, fortunes, and lantern reflections remain only in their own browser using localStorage. No server stores those text entries. Erasing the path and journal clears local state on that browser.
+Text that visitors write (journals, lanterns, fortune, unsent letter) remains in browser local storage. The program does not send that writing to the server. The user-controlled keepsake download creates a local .txt containing this writing; the interface labels this clearly.
 
-## Release verification
+## Files
 
-Run on the Windows 11 workstation with PowerShell 7:
+- worker.js: deployable Worker source, embedding HTML, CSS, story data and browser-side logic
+- assets/: nine coordinated WebP assets
+- story-smoke.cjs: local branch/state-machine, reachability, writing, atlas, ending, download and focus-mode regression tests
 
-    node X:\Code\graves-persephone-story\story-smoke.cjs
+## Test and deploy (PowerShell 7)
+
     node --check X:\Code\graves-persephone-story\worker.js
+    node X:\Code\graves-persephone-story\story-smoke.cjs
 
-Confirm live HTTP 200 on the story, homepage, and all published asset URLs, followed by live JavaScript syntax validation. Only claim a deployment after these checks succeed.
+After source control commit and pushing a clean main, deploy the exact committed worker.js to the existing Cloudflare Worker, then independently check the live story, JavaScript parse, and image URLs. Do not change the domain's DNS, homepage, unrelated Worker routes, or access model.
 
-## Content evolution
-
-Preserve the existing save key and migration behavior for returning readers. Add new scene artwork as reusable named assets and avoid changing old route IDs unless a migration is supplied. Do not change the site's access model without an explicit new instruction.
+When adding scenes, avoid renaming existing IDs and preserve current browser saves; ensure all scene IDs remain reachable and all choices are covered by the smoke tests.

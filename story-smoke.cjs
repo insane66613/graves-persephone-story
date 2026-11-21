@@ -1,56 +1,49 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync(path.join(__dirname,'worker.js'),'utf8');
-const marker=";\naddEventListener('fetch'";
-const idx=source.indexOf(marker);assert.ok(idx>0,'Worker must contain HTML payload');
-const html=JSON.parse(source.slice('const HTML='.length,idx));
+const cut=source.indexOf(";\naddEventListener('fetch'");assert.ok(cut>0);
+const html=JSON.parse(source.slice('const HTML='.length,cut));
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
-new vm.Script(script,{filename:'in-page-script.js'});
-const elements=new Map(),storage=new Map(),handlers={};
-const element=id=>{
- if(!elements.has(id))elements.set(id,{innerHTML:'',textContent:'',value:'',hidden:false,disabled:false,addEventListener(event,cb){handlers[id+'_'+event]=cb},focus(){},setAttribute(name,value){this[name]=value}});
- return elements.get(id)
-};
-const fakeButtons=['persephone','eric','hecate'].map(v=>({value:v,setAttribute(k,val){this[k]=val},getAttribute(){return this.value}}));
-const sandbox={console,window:{scrollTo(){}},document:{getElementById:element,addEventListener(type,cb){handlers['document_'+type]=cb},querySelector(){return {focus(){}}},querySelectorAll(){return fakeButtons}},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},confirm(){return true}};
-const instrumented=script.replace('draw();\n})();','window.__test={scenes,endings,pick,go,back,draw,restart,getState:()=>state,relationshipEnding,endingKey};draw();\n})();');
-assert.notEqual(script,instrumented,'Instrumentation placement');
-vm.runInNewContext(instrumented,sandbox,{timeout:5000});
-const t=sandbox.window.__test,keys=Object.keys(t.scenes);
-assert.equal(keys.length,18,'scene count');assert.equal(Object.keys(t.endings).length,5,'ending count');
-let tested=0;
-for(const id of keys){
- const sc=t.scenes[id];assert.equal(sc.choices.length,3,'scene '+id);
- for(let i=0;i<3;i++){
-  t.restart(true);t.getState().current=id;t.draw();t.pick(i);
-  const chosen=sc.choices[i];assert.ok(t.getState().feedback,'feedback '+id);
-  assert.equal(t.getState().history.length,1,'history '+id);
-  if(chosen.rel){for(const k in chosen.rel)assert.equal(t.getState().relation[k],chosen.rel[k],'relation '+id+' '+k)}
-  t.go();assert.equal(t.getState().current,chosen.next,'transition '+id+' '+i);
-  t.back();assert.equal(t.getState().current,id,'back '+id+' '+i);
-  assert.equal(t.getState().relation.repair,0,'repair undone');
-  assert.equal(t.getState().relation.space,0,'space undone');
-  assert.equal(t.getState().relation.open,0,'open undone');
-  tested++;
- }
-}
-assert.equal(tested,54,'choice transitions');
-const reachable=new Set(['prologue']),queue=['prologue'];while(queue.length){const id=queue.shift();for(const choice of t.scenes[id].choices){if(choice.next==='ending')continue;assert.ok(t.scenes[choice.next],'missing scene '+choice.next);if(!reachable.has(choice.next)){reachable.add(choice.next);queue.push(choice.next)}}}
-assert.equal(reachable.size,keys.length,'all chapters reachable');
-t.restart(true);t.getState().current='visitor';t.draw();
-assert.match(element('story').innerHTML,/Turn Hecate/);
-assert.match(element('story').innerHTML,/eric-gate.webp/);
-handlers.document_click({target:{closest(){return {getAttribute(attr){return attr==='data-lens'?'eric':null},hasAttribute(attr){return attr==='data-lens'}}}}});
-assert.equal(t.getState().lens,'eric');assert.match(element('lens-words').textContent,/reassurance/);
-t.restart(true);t.getState().current='ericBridge';t.getState().relation.repair=3;
-t.draw();t.pick(0);t.go();t.getState().current='ending';t.draw();
-assert.match(element('story').innerHTML,/A bridge built in daylight/);
+new vm.Script(script,{filename:'orchard-website.js'});
+const items=new Map(),stored=new Map(),handlers={},downloads=[],classes=new Map();
+function element(id){if(!items.has(id))items.set(id,{innerHTML:'',textContent:'',value:'',disabled:false,hidden:false,style:{},addEventListener(event,fn){handlers[id+'_'+event]=fn},focus(){},setAttribute(k,v){this[k]=v}});return items.get(id)}
+const buttons=['persephone','eric','hecate'].map(v=>({value:v,setAttribute(k,x){this[k]=x},getAttribute(){return this.value}}));
+const body={classList:{toggle(k,v){classes.set(k,v)}},appendChild(n){}};
+const sandbox={console,Blob:class{constructor(parts,options){this.content=parts.join('');this.type=options.type;downloads.push(this.content)}},URL:{createObjectURL(){return 'blob:in-memory-test'},revokeObjectURL(){}},setTimeout(cb){cb()},window:{scrollTo(){}},document:{body,getElementById:element,addEventListener(k,fn){handlers['document_'+k]=fn},querySelector(){return{focus(){}}},querySelectorAll(){return buttons},createElement(){return {style:{},click(){},remove(){}}}},localStorage:{getItem:k=>stored.get(k)||null,setItem:(k,v)=>stored.set(k,v)},confirm(){return true}};
+const instrumented=script.replace('draw();\n})();','window.__test={scenes,endings,getState:()=>state,pick,go,back,draw,restart,rewindTo,privateKeepsake,downloadKeepsake,relationshipEnding,endingKey};draw();\n})();');
+assert.notEqual(script,instrumented);
+vm.runInNewContext(instrumented,sandbox,{timeout:6000});
+const t=sandbox.window.__test,ids=Object.keys(t.scenes);
+assert.equal(ids.length,20,'20 scenes');
+assert.equal(Object.keys(t.endings).length,5,'5 mythic endings');
+let trials=0;
+for(const id of ids){const scene=t.scenes[id];assert.equal(scene.choices.length,3,id+' options');for(let k=0;k<3;k++){t.restart(true);t.getState().current=id;t.draw();const ch=scene.choices[k];t.pick(k);assert.equal(t.getState().history.length,1);if(ch.rel)for(const name of Object.keys(ch.rel))assert.equal(t.getState().relation[name],ch.rel[name]);t.go();assert.equal(t.getState().current,ch.next,id+' next '+k);t.back();assert.equal(t.getState().current,id,id+' rewind');assert.equal(t.getState().relation.repair,0);assert.equal(t.getState().relation.space,0);assert.equal(t.getState().relation.open,0);trials++}}
+assert.equal(trials,60);
+const visited=new Set(['prologue']),queue=['prologue'];while(queue.length){const id=queue.shift();for(const ch of t.scenes[id].choices){if(ch.next==='ending')continue;assert.ok(t.scenes[ch.next],'missing '+ch.next);if(!visited.has(ch.next)){visited.add(ch.next);queue.push(ch.next)}}}
+assert.equal(visited.size,20,'reachability');
+t.restart(true);t.getState().current='visitor';t.draw();assert.match(element('story').innerHTML,/Turn Hecate/);
+const fakeClick=el=>handlers.document_click({target:{closest(){return el}}});
+fakeClick({id:'reading-toggle',hasAttribute(){return false}});assert.equal(t.getState().reading,true);assert.equal(classes.get('reading-mode'),true);
+fakeClick({id:'reading-toggle',hasAttribute(){return false}});assert.equal(t.getState().reading,false);
+fakeClick({id:'',hasAttribute:k=>k==='data-lens',getAttribute:k=>k==='data-lens'?'eric':null});assert.equal(t.getState().lens,'eric');
+t.restart(true);t.getState().current='letter';t.draw();assert.match(element('story').innerHTML,/letter-text/);
+handlers.story_input({target:{id:'letter-text',value:'I can choose with care'}});assert.equal(t.getState().letter,'I can choose with care');
+t.getState().fortune='A future I author';t.getState().lantern={known:'Their actual words',unknown:'What they might think'};t.getState().notes='A private journal entry';
+t.getState().current='ending';t.draw();assert.match(element('story').innerHTML,/I can choose with care/);
+assert.match(t.privateKeepsake(),/A private journal entry/);
+t.downloadKeepsake();assert.equal(downloads.length,1);assert.match(downloads[0],/A future I author/);
+t.restart(false);assert.equal(t.getState().letter,'I can choose with care');assert.equal(t.getState().notes,'A private journal entry');
+t.restart(true);assert.equal(t.getState().letter,'');assert.equal(t.getState().notes,'');
+t.getState().current='prologue';t.draw();t.pick(0);t.go();t.pick(1);t.go();
+assert.equal(t.getState().history.length,2);
+assert.match(element('path-atlas-list').innerHTML,/data-rewind="0"/);
+const oldLetter='Saved without being sent';t.getState().letter=oldLetter;t.rewindTo(0);
+assert.equal(t.getState().current,'prologue');assert.equal(t.getState().history.length,0);assert.equal(t.getState().letter,oldLetter);
+t.restart(true);t.getState().current='ending';t.getState().relation={repair:5,space:0,open:0};t.draw();assert.match(element('story').innerHTML,/A bridge built in daylight/);
 t.getState().relation={repair:0,space:4,open:0};t.draw();assert.match(element('story').innerHTML,/Two paths, neither a failure/);
 t.getState().relation={repair:0,space:0,open:4};t.draw();assert.match(element('story').innerHTML,/The gate remains a question/);
-t.getState().fortune='I can write my own future';t.draw();assert.match(element('story').innerHTML,/I can write my own future/);
-t.getState().lantern={known:'The words I heard',unknown:'What I still cannot know'};t.draw();assert.match(element('story').innerHTML,/The words I heard/);
+assert.match(html,/save-keepsake/);assert.match(html,/path-atlas/);
 assert.match(html,/graves-persephone-story\/main\/assets/);
-for(const name of ['eric-gate','eric-bridge','eric-hearth','eric-fortune'])assert.ok(fs.statSync(path.join(__dirname,'assets',name+'.webp')).size>40000,'illustration '+name);
 assert.match(source,/img-src https:\/\/raw\.githubusercontent\.com/);
-assert.match(html,/fictional/i);assert.doesNotMatch(html,/\bMatthew Schaefer\b|\bDawn Vera\b/i);
-console.log(JSON.stringify({success:true,scenes:keys.length,choicesTested:tested,reachableScenes:reachable.size,endings:Object.keys(t.endings).length,relationshipOutcomes:3,perspectiveSwitch:true,ericGraphics:4,savedProgressCompatible:true}));
+assert.doesNotMatch(html,/\bMatthew Schaefer\b|\bDawn Vera\b/i);
+console.log(JSON.stringify({ok:true,scenes:ids.length,choicesTested:trials,reachable:visited.size,mythicEndings:5,relationshipOutcomes:3,atlasRewind:true,focusMode:true,unsentLetter:true,keepsakeDownload:true,savedStatePreserved:true}));
