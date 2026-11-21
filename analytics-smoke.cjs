@@ -1,0 +1,18 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const source=fs.readFileSync(path.join(__dirname,'worker.js'),'utf8');
+const cut=source.indexOf(";\naddEventListener('fetch'");
+assert.ok(cut>0,'Worker HTML payload');
+const html=JSON.parse(source.slice('const HTML='.length,cut));
+const csp=source.slice(source.indexOf("'content-security-policy':"),source.indexOf("'content-security-policy':")+440);
+assert.match(csp,/default-src 'none'/,'strict default CSP');
+assert.match(csp,/script-src 'self' 'unsafe-inline' https:\/\/static\.cloudflareinsights\.com/,'Zaraz same-origin bootstrap and existing beacon');
+assert.match(csp,/connect-src 'self'/,'Zaraz same-origin collection');
+assert.match(csp,/img-src 'self' https:\/\/raw\.githubusercontent\.com/,'local assets and existing art');
+assert.match(csp,/frame-ancestors 'none'/,'no framing');
+assert.doesNotMatch(html,/googletagmanager\.com\/(?:gtag|gtm)/,'no duplicate manual Google tag');
+assert.doesNotMatch(html,/cdn-cgi\/zaraz\/s\.js/,'zone-wide injection handled by Cloudflare, not application');
+assert.match(html,/Cloudflare Zaraz sends pageviews to Google Analytics 4/,'GA4 disclosed in the story');
+assert.match(html,/Your journal entries, letters, fortunes, and reflections stay in this browser/,'private writing disclosure');
+assert.match(html,/graves_orchard_between_worlds_v1/,'browser save key unchanged');
+console.log(JSON.stringify({ok:true,mode:'Cloudflare Zaraz zone-level GA4',appEmbeddedGoogleTags:0,sameOriginScriptAllowed:true,sameOriginCollectionAllowed:true,savedDataCompatible:true}));

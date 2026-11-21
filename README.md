@@ -1,4 +1,4 @@
-# The Orchard Between Worlds
+﻿# The Orchard Between Worlds
 
 An original illustrated, branching mythic story written as a gift for Dawn, drawing on Persephone, Hecate, and shadow-work symbolism. The characters and dialogue are fictional, including the portrayal of Eric.
 
@@ -64,3 +64,23 @@ Run both tests before deployment:
     node X:\Code\graves-persephone-story\wisdom-smoke.cjs
 
 The conceptual labels deliberately distinguish ancient myth, Jungian interpretive theory, philosophical ethics, and evidence-informed cognitive exercises. Nothing in the lessons diagnoses a real person or treats a symbolic interpretation as proof of someone's motives.
+
+## Site-wide Google Analytics 4 (November 2026)
+
+- Owner-supplied GA4 measurement ID: G-Z569M020PS.
+- Cloudflare Zaraz is configured zone-wide for all proxied HTML pages of ptelectronics.net, including root, www, Graves, Zeppoles and other proxied subdomains.
+- Managed Component: google-analytics_v4; Zaraz tool ID ga4pte1; enabled with the Pageview trigger. The application does not send custom user-generated journal, letter, fortune, or educational exercise data.
+- Privacy options: hideIPAddress=true, hideQueryParams=true, hideExternalReferer=true, hideOriginalIP=true, audiences=false and ecommerce=false.
+- Cloudflare Google Tag Gateway was enabled briefly and then disabled to prevent duplicate tag injection; Zaraz is the single configured GA4 path.
+- Existing Cloudflare Web Analytics beacon remains independent.
+- Persephone Worker CSP permits same-origin Zaraz bootstrap and event endpoint (script-src 'self'; connect-src 'self') and retains the original framing and default restrictions.
+- GA4 still collects page metadata, but private written reflections remain in localStorage and are not forwarded by the story application.
+- Complete end-to-end verification requires observing a real pageview in the owner's GA4 Realtime/DebugView; page-source checks alone cannot prove ingestion.
+
+Validation commands:
+
+    node X:\Code\graves-persephone-story\analytics-smoke.cjs
+    node X:\Code\graves-persephone-story\story-smoke.cjs
+    node X:\Code\graves-persephone-story\wisdom-smoke.cjs
+
+Zaraz's zone-level configuration is not deployed through this repository. Do not add duplicate gtag.js snippets to individual websites.

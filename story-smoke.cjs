@@ -44,6 +44,6 @@ t.getState().relation={repair:0,space:4,open:0};t.draw();assert.match(element('s
 t.getState().relation={repair:0,space:0,open:4};t.draw();assert.match(element('story').innerHTML,/The gate remains a question/);
 assert.match(html,/save-keepsake/);assert.match(html,/path-atlas/);
 assert.match(html,/graves-persephone-story\/main\/assets/);
-assert.match(source,/img-src https:\/\/raw\.githubusercontent\.com/);
+assert.match(source,/img-src (?:'self' )?https:\/\/raw\.githubusercontent\.com/);
 assert.doesNotMatch(html,/\bMatthew Schaefer\b|\bDawn Vera\b/i);
 console.log(JSON.stringify({ok:true,scenes:ids.length,choicesTested:trials,reachable:visited.size,mythicEndings:5,relationshipOutcomes:3,atlasRewind:true,focusMode:true,unsentLetter:true,keepsakeDownload:true,savedStatePreserved:true}));
