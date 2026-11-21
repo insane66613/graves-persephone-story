@@ -85,3 +85,27 @@ Verification commands:
     node X:\Code\graves-persephone-story\wisdom-smoke.cjs
 
 Rollback: disable Gateway (enabled=false and setUpTag=false), remove the isolated root-CSP response transform rule, and re-enable the Zaraz GA4 tool if needed. Do not enable both GA4 pageview senders simultaneously.
+
+## GA4 Realtime collection repair (2026-11-21)
+
+**Verified defect:** Cloudflare Google Tag Gateway delivered the Google tag but no `gtag('config', 'G-Z569M020PS')` command was present in the browser's `dataLayer`. The Google installation test detected the tag, but Chrome produced no GA4 collection request. A controlled manual configuration in an isolated diagnostic browser caused `POST /gmetrics/ga/g/c` and `POST https://www.google-analytics.com/g/s/collect` responses of HTTP 204.
+
+**Production repair:**
+
+- `infra/ga4-init-worker.js` is the separately deployed `ptelectronics-ga4-init` Cloudflare Worker. It adds the missing initialization once per HTML response without reading local storage, forms, journal entries or other visitor-authored text.
+- Worker routes are scoped to the marketing pages on `ptelectronics.net/*`, `www.ptelectronics.net/*`, `graves.ptelectronics.net/*`, and `zeppoles.ptelectronics.net/*`. A more-specific `graves.ptelectronics.net/persephone/*` route continues using the story Worker. The Google gateway `/gmetrics/*` routes have null-script exclusions, because sending the first-party Google loader through the marketing Worker would break the gateway.
+- The existing `graves-persephone-story` Worker embeds the same one-time initializer in the story's HTML. The original story branch structure, journal, and browser storage key remain unchanged.
+- A narrow response-header rule on the root and `www` sites permits the exact script via SHA-256 `hrgh4GcqPTs6lCXTie51xggzfwgbgUgMCzF/oCgAlyM=`, preserving the prior Google Tag Gateway bootstrap hash and other protections.
+- Google Tag Gateway remains enabled, and the overlapping Cloudflare Zaraz GA4 component remains disabled to avoid double counting.
+- The staging route `ptelectronics.net/__ga4-preview/*` verified that the initializer caused first-party and Google collection endpoints to respond HTTP 204 before the main root route was enabled. Remove the staging route after release verification.
+- Browser-level Chrome DevTools Protocol diagnostics were saved locally outside this repository. HTTP 204 confirms collection endpoints accepted requests, but does not conclusively prove the selected GA4 property reports those events. Final confirmation is GA4 Realtime/DebugView with the matching stream and no active filters.
+
+Run tests:
+```powershell
+node X:\Code\graves-persephone-story\infra\ga4-init-check.cjs
+node X:\Code\graves-persephone-story\analytics-smoke.cjs
+node X:\Code\graves-persephone-story\story-smoke.cjs
+node X:\Code\graves-persephone-story\wisdom-smoke.cjs
+```
+
+Rollback: remove only the marketing site's `ptelectronics-ga4-init` routes and restore the story Worker's prior version; keep the `/gmetrics/*` exclusions if broad routing is still active. Restore the original response-header hash list after removing the initializer. Keep zone-wide Google Tag Gateway enabled only when the site is otherwise correctly initializing GA4.
