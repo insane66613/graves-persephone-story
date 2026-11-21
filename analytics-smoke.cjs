@@ -12,7 +12,7 @@ assert.match(csp,/img-src 'self' https:\/\/raw\.githubusercontent\.com/,'local a
 assert.match(csp,/frame-ancestors 'none'/,'no framing');
 assert.doesNotMatch(html,/googletagmanager\.com\/(?:gtag|gtm)/,'no duplicate manual Google tag');
 assert.doesNotMatch(html,/cdn-cgi\/zaraz\/s\.js/,'zone-wide injection handled by Cloudflare, not application');
-assert.match(html,/Cloudflare Zaraz sends pageviews to Google Analytics 4/,'GA4 disclosed in the story');
+assert.match(html,/Cloudflare Google Tag Gateway delivers the Google Analytics 4 tag for pageviews/,'GA4 disclosed in the story');
 assert.match(html,/Your journal entries, letters, fortunes, and reflections stay in this browser/,'private writing disclosure');
 assert.match(html,/graves_orchard_between_worlds_v1/,'browser save key unchanged');
-console.log(JSON.stringify({ok:true,mode:'Cloudflare Zaraz zone-level GA4',appEmbeddedGoogleTags:0,sameOriginScriptAllowed:true,sameOriginCollectionAllowed:true,savedDataCompatible:true}));
+console.log(JSON.stringify({ok:true,mode:'Google Tag Gateway zone-level GA4',appEmbeddedGoogleTags:0,sameOriginScriptAllowed:true,sameOriginCollectionAllowed:true,savedDataCompatible:true}));

@@ -1,4 +1,4 @@
-﻿# The Orchard Between Worlds
+# The Orchard Between Worlds
 
 An original illustrated, branching mythic story written as a gift for Dawn, drawing on Persephone, Hecate, and shadow-work symbolism. The characters and dialogue are fictional, including the portrayal of Eric.
 
@@ -67,20 +67,21 @@ The conceptual labels deliberately distinguish ancient myth, Jungian interpretiv
 
 ## Site-wide Google Analytics 4 (November 2026)
 
-- Owner-supplied GA4 measurement ID: G-Z569M020PS.
-- Cloudflare Zaraz is configured zone-wide for all proxied HTML pages of ptelectronics.net, including root, www, Graves, Zeppoles and other proxied subdomains.
-- Managed Component: google-analytics_v4; Zaraz tool ID ga4pte1; enabled with the Pageview trigger. The application does not send custom user-generated journal, letter, fortune, or educational exercise data.
-- Privacy options: hideIPAddress=true, hideQueryParams=true, hideExternalReferer=true, hideOriginalIP=true, audiences=false and ecommerce=false.
-- Cloudflare Google Tag Gateway was enabled briefly and then disabled to prevent duplicate tag injection; Zaraz is the single configured GA4 path.
-- Existing Cloudflare Web Analytics beacon remains independent.
-- Persephone Worker CSP permits same-origin Zaraz bootstrap and event endpoint (script-src 'self'; connect-src 'self') and retains the original framing and default restrictions.
-- GA4 still collects page metadata, but private written reflections remain in localStorage and are not forwarded by the story application.
-- Complete end-to-end verification requires observing a real pageview in the owner's GA4 Realtime/DebugView; page-source checks alone cannot prove ingestion.
+- GA4 measurement ID: G-Z569M020PS.
+- Cloudflare Google Tag Gateway is enabled on the proxied ptelectronics.net zone, at the first-party /gmetrics endpoint, with automatic native Google tag insertion (setUpTag=true).
+- Do not install an additional manual gtag.js or Google Tag Manager snippet on these pages. The Gateway inserts the tag once per eligible HTML response.
+- Cloudflare Zaraz GA4 Managed Component ga4pte1 was intentionally disabled to avoid duplicate pageview events. It remains configured for rollback, but does not send GA4 events while disabled.
+- For ptelectronics.net and www.ptelectronics.net only, a Cloudflare Response Header Transform Rule (ruleset 58199d8235024354aa71375359a98ee8, rule ref ga4_tag_root_csp_sha256_20261121) permits the exact injected Google Tag bootstrap using its SHA-256 hash, rather than broadly enabling inline scripts. Existing site CSP controls remain.
+- Other subdomains may have their own CSP requirements. The Persephone Worker's current CSP permits first-party /gmetrics script and collection and preserves its existing media, framing and default restrictions.
+- The Google tag is visible in live browser-style HTML requests at root, www, Graves, Persephone and Zeppoles. The first-party Google script URL returns HTTP 200. This does not itself prove GA4 reports have received events; confirm with Google Analytics Realtime / Tag Assistant.
+- No custom tracking events are wired to the Persephone story's journals, letters, fortunes, or educational reflections. Those stay in local browser storage unless the visitor chooses to download a keepsake.
+- Existing Cloudflare Web Analytics beacon remains separate.
+- Cloudflare Gateway and the Response Header Transform Rule are zone-level infrastructure settings, not deployed from this repository.
 
-Validation commands:
+Verification commands:
 
     node X:\Code\graves-persephone-story\analytics-smoke.cjs
     node X:\Code\graves-persephone-story\story-smoke.cjs
     node X:\Code\graves-persephone-story\wisdom-smoke.cjs
 
-Zaraz's zone-level configuration is not deployed through this repository. Do not add duplicate gtag.js snippets to individual websites.
+Rollback: disable Gateway (enabled=false and setUpTag=false), remove the isolated root-CSP response transform rule, and re-enable the Zaraz GA4 tool if needed. Do not enable both GA4 pageview senders simultaneously.
